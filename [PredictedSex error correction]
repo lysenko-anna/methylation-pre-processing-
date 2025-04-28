@@ -1,0 +1,11 @@
+annotation <- c("IlluminaHumanMethylation450k","ilmn12.hg19")
+
+names(annotation) <- c("array","annotation")
+  
+methylset=MethylSet(Meth = methylated_matrix, Unmeth = unmethylated_matrix,
+                    annotation = annotation)
+RSet <- ratioConvert(methylset,
+                     what = "both",
+                     keepCN = TRUE)
+GRset <- mapToGenome(RSet)
+predictedSex <- getSex(GRset, cutoff = -2)$predictedSex
